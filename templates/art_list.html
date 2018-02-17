@@ -1,0 +1,50 @@
+{% extends "art_base.html" %}
+{% import "page.html" as pg %}
+{% block css %}
+<style>
+    .table td,
+    .table th{
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}
+{% block content %}
+                 <div class="card-body">
+                     <table class="table table-bordered">
+                         <thead>
+                         <tr>
+                             <th>标题</th>
+                             <th>分类</th>
+                             <th>封面</th>
+                             <th>作者</th>
+                             <th>发布时间</th>
+                             <th>管理操作</th>
+                         </tr>
+                         </thead>
+                         {% for v in page_data.items %}
+                     <tr>
+                         <td>{{ v.title }}</td>
+                         <td>{{ category[v.category-1][1] }}</td>
+                         <td>
+                             <!--<img data-src="holder.js/75x40">-->
+                         <img src="/static/uploads/{{ v.logo }}" style="width: 75px; height: 40px">
+                         </td>
+                         <td>{{ session['user'] }}</td>
+                         <td>{{ v.add_time }}</td>
+                         <td>
+                             <a href="{{ url_for('art_edit',id=v.id) }}" class="btn btn-sm btn-outline-success">编辑</a>
+                             <a href="{{ url_for('art_del',id=v.id) }}" class="btn btn-sm btn-outline-danger">删除</a>
+                         </td>
+                     </tr>
+                     {% endfor %}
+                     </table>
+                    {{ pg.page(page_data, 'art_list') }}
+                 </div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function () {
+        $("#m2").addClass("active");
+    });
+</script>
+{% endblock %}

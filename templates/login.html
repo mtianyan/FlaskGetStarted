@@ -1,0 +1,29 @@
+{% extends "user_base.html" %}
+
+{% block content %}
+<form method="post">
+    {% for msg in get_flashed_messages(category_filter=['ok']) %}
+    <p style="color: green">{{ msg }}</p>
+    {% endfor %}
+                    <div class="form-group">
+                        <label>账号</label>
+                        {{ form.account }}
+                        {% for error in form.account.errors %}
+                        <p style="color: red; font-weight: bold">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        {{ form.pwd }}
+                        {% for error in form.pwd.errors %}
+                         <p style="color: red; font-weight: bold">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <a href="/register/">没有账号?前往注册</a>
+                    <br>
+                    {{ form.csrf_token }}
+                    {{ form.submit }}
+                </form>
+{% endblock %}
+
+

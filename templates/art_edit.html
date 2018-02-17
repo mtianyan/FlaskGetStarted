@@ -1,0 +1,58 @@
+{% extends "art_base.html" %}
+{% block css %}
+<script type="text/javascript" charset="UTF-8" src="{{ url_for('static',filename='ue/ueditor.config.js') }}"></script>
+<script type="text/javascript" charset="UTF-8" src="{{ url_for('static',filename='ue/ueditor.all.js') }}"></script>
+<script type="text/javascript" charset="UTF-8" src="{{ url_for('static',filename='ue/lang/zh-cn/zh-cn.js') }}"></script>
+<script type="text/javascript" charset="UTF-8" src="{{ url_for('static',filename='we/wangEditor.js') }}"></script>
+<script type="text/javascript" charset="UTF-8" src="{{ url_for('static',filename='we/wangEditor.css') }}"></script>
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>标题</label>
+        <input type="hidden" name="id" value="{{ article.id }}">
+        {{ form.title(value=article.title) }}
+        {% for error in form.title.errors %}
+        <p style="color: red; font-weight: bold">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <label>分类</label>
+        {{ form.category }}
+        {% for error in form.category.errors %}
+        <p style="color: red; font-weight: bold">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <label>封面</label>
+        {{ form.logo }}
+        {% for error in form.logo.errors %}
+        <p style="color: red; font-weight: bold">{{ error }}</p>
+        {% endfor %}
+        <!--<img data-src="holder.js/300x160" style="margin-top: 6px;">-->
+
+        <img src="/static/uploads/{{ article.logo }}" style="margin-top: 6px;width: 300px; height: 160px;">
+        <br>
+        <a class="btn btn-primary" style="margin-top: 6px;">上传封面</a>
+    </div>
+    <div class="form-group">
+        <label>内容</label>
+        {{ form.content }}
+        {% for error in form.content.errors %}
+        <p style="color: red; font-weight: bold">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {{ form.csrf_token }}
+    {{ form.submit }}
+</form>
+{% endblock %}
+
+{% block js %}
+<script>
+    var ue = UE.getEditor("content");
+    $(document).ready(function () {
+        $("#m1").addClass("active");
+    });
+</script>
+{% endblock %}

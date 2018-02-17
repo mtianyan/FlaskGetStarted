@@ -1,0 +1,45 @@
+{% extends "user_base.html" %}
+
+{% block content %}
+<form method="post">
+                    <div class="form-group">
+                        <label>账号</label>
+                       {{ form.account }}
+                        {% for error in form.account.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        {{ form.pwd }}
+                        {% for error in form.pwd.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label>确认密码</label>
+                       {{ form.re_pwd }}
+                        {% for error in form.re_pwd.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label>验证码</label>
+                        {{ form.captcha }}
+                        {% for error in form.captcha.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        <!--<img data-src="holder.js/180x50" style="margin-top: 6px">-->
+                        <img  title="点击切换" src="/captcha/" onclick="this.src='/captcha/?'+Math.random()" style="width: 180px; height: 50px;margin-top: 6px;">
+                    </div>
+                    <a href="/login/">已有账号!前往登录</a>
+                    <br>
+                    {{ form.csrf_token }}
+                    {{ form.submit }}
+
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% macro page(data, url) %}
+{% if data %}
+<nav>
+    <ul class="pagination">
+        {% if data.has_prev %}
+        <li class="page-item"><a class="page-link" href="{{ url_for(url,page=data.prev_num) }}">上一页</a></li>
+        {% endif %}
+        {% for v in data.iter_pages() %}
+        {% if v != data.page %}
+                <li class="page-item"><a class="page-link" href="{{ url_for(url,page=v) }}">{{ v }}</a></li>
+        {% endif %}
+        {% if v == data.page %}
+                <li class="page-item active"><a class="page-link">{{ v }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if data.has_next %}
+        <li class="page-item"><a class="page-link" href="{{ url_for(url,page=data.next_num) }}">下一页</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endmacro %}
